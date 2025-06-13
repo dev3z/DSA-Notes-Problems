@@ -28,8 +28,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.name "notion-sync-bot"
-          git config user.email "bot@example.com"
+          git config user.name "dev3z"
+          git config user.email "dkp05022003@gmail.com"
           git add README.md
           git commit -m "Sync Notion notes" || echo "No changes to commit"
           git push
