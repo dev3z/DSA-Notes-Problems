@@ -1,39 +1,43 @@
-# sync_notion.py
-import os
 from notion_client import Client
-from datetime import datetime
+import os
 
-NOTION_TOKEN = os.getenv("NOTION_TOKEN")
-NOTION_PAGE_ID = os.getenv("NOTION_PAGE_ID")
-
-notion = Client(auth=NOTION_TOKEN)
+notion = Client(auth=os.getenv("NOTION_TOKEN"))
 
 def fetch_page_content(page_id):
-    from notion_client.helpers import get_id
-    block_id = page_id
-    children = notion.blocks.children.list(block_id)["results"]
-    content = ""
-    for child in children:
-        if child["type"] == "paragraph":
-            text = child["paragraph"]["text"]
-            content += "".join([t["plain_text"] for t in text]) + "\n\n"
-        elif child["type"] == "heading_1":
-            text = child["heading_1"]["text"]
-            content += "# " + "".join([t["plain_text"] for t in text]) + "\n\n"
-        elif child["type"] == "heading_2":
-            text = child["heading_2"]["text"]
-            content += "## " + "".join([t["plain_text"] for t in text]) + "\n\n"
-        elif child["type"] == "heading_3":
-            text = child["heading_3"]["text"]
-            content += "### " + "".join([t["plain_text"] for t in text]) + "\n\n"
-    return content
+    blocks = []
+    start_cursor = None
 
-def save_to_file(content):
-    with open("README.md", "w", encoding="utf-8") as f:
-        f.write("# Synced Notion Notes\n\n")
-        f.write(content)
-        f.write(f"\n_Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_\n")
+    while True:
+        response = notion.blocks.children.list(block_id=page_id, start_cursor=start_cursor)
+        blocks.extend(response["results"])
+        if not response.get("has_more"):
+            break
+        start_cursor = response.get("next_cursor")
 
-if __name__ == "__main__":
-    content = fetch_page_content(NOTION_PAGE_ID)
-    save_to_file(content)
+    md_lines = []
+
+    for block in blocks:
+        block_type = block["type"]
+        data = block[block_type]
+
+        # Handle paragraphs
+        if block_type == "paragraph":
+            text = "".join([t.get("plain_text", "") for t in data.get("rich_text", [])])
+            if text.strip():
+                md_lines.append(text)
+
+        # Handle headings
+        elif block_type in ["heading_1", "heading_2", "heading_3"]:
+            level = int(block_type[-1])
+            text = "".join([t.get("plain_text", "") for t in data.get("rich_text", [])])
+            md_lines.append(f"{'#' * level} {text}")
+
+        # Handle bullets
+        elif block_type in ["bulleted_list_item", "numbered_list_item"]:
+            text = "".join([t.get("plain_text", "") for t in data.get("rich_text", [])])
+            prefix = "-" if block_type == "bulleted_list_item" else "1."
+            md_lines.append(f"{prefix} {text}")
+
+        # You can add more types here (code, to_do, etc.)
+
+    return "\n\n".join(md_lines)
