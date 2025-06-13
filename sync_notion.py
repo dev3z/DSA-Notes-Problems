@@ -22,22 +22,23 @@ def fetch_page_content(page_id):
 
         # Handle paragraphs
         if block_type == "paragraph":
-            text = "".join([t.get("plain_text", "") for t in data.get("rich_text", [])])
+            rich_text = data.get("rich_text", [])
+            text = "".join([t.get("plain_text", "") for t in rich_text])
             if text.strip():
                 md_lines.append(text)
 
-        # Handle headings
+        # Headings
         elif block_type in ["heading_1", "heading_2", "heading_3"]:
             level = int(block_type[-1])
-            text = "".join([t.get("plain_text", "") for t in data.get("rich_text", [])])
+            rich_text = data.get("rich_text", [])
+            text = "".join([t.get("plain_text", "") for t in rich_text])
             md_lines.append(f"{'#' * level} {text}")
 
-        # Handle bullets
+        # Bullets & numbered
         elif block_type in ["bulleted_list_item", "numbered_list_item"]:
-            text = "".join([t.get("plain_text", "") for t in data.get("rich_text", [])])
             prefix = "-" if block_type == "bulleted_list_item" else "1."
+            rich_text = data.get("rich_text", [])
+            text = "".join([t.get("plain_text", "") for t in rich_text])
             md_lines.append(f"{prefix} {text}")
-
-        # You can add more types here (code, to_do, etc.)
 
     return "\n\n".join(md_lines)
