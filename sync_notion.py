@@ -1,59 +1,43 @@
 import os
 from notion_client import Client
+from datetime import datetime
 
-# Initialize Notion client
-notion = Client(auth=os.getenv("NOTION_TOKEN"))
+NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+NOTION_PAGE_ID = os.getenv("NOTION_PAGE_ID")
+
+notion = Client(auth=NOTION_TOKEN)
 
 def fetch_page_content(page_id):
-    md_lines = []
-    start_cursor = None
+    from notion_client.helpers import get_id
+    block_id = page_id
+    children = notion.blocks.children.list(block_id)["results"]
+    content = ""
+    for child in children:
+        if child["type"] == "paragraph":
+            para = child.get("paragraph", {})
+            text = para.get("text", [])
+            content += "".join([t.get("plain_text", "") for t in text]) + "\n\n"
+        elif child["type"] == "heading_1":
+            heading = child.get("heading_1", {})
+            text = heading.get("text", [])
+            content += "# " + "".join([t.get("plain_text", "") for t in text]) + "\n\n"
+        elif child["type"] == "heading_2":
+            heading = child.get("heading_2", {})
+            text = heading.get("text", [])
+            content += "## " + "".join([t.get("plain_text", "") for t in text]) + "\n\n"
+        elif child["type"] == "heading_3":
+            heading = child.get("heading_3", {})
+            text = heading.get("text", [])
+            content += "### " + "".join([t.get("plain_text", "") for t in text]) + "\n\n"
+        # Optionally add more types here with similar .get() checks
+    return content
 
-    while True:
-        response = notion.blocks.children.list(
-            block_id=page_id,
-            start_cursor=start_cursor
-        )
-        blocks = response.get("results", [])
-
-        for block in blocks:
-            block_type = block.get("type")
-            data = block.get(block_type, {})
-
-            rich_text = data.get("rich_text", [])
-            text = "".join([t.get("plain_text", "") for t in rich_text])
-
-            if block_type == "paragraph":
-                if text.strip():
-                    md_lines.append(text)
-
-            elif block_type in ["heading_1", "heading_2", "heading_3"]:
-                level = int(block_type[-1])
-                md_lines.append(f"{'#' * level} {text}")
-
-            elif block_type == "bulleted_list_item":
-                md_lines.append(f"- {text}")
-
-            elif block_type == "numbered_list_item":
-                md_lines.append(f"1. {text}")
-
-            # Optional: handle more types (to_do, code, toggle, etc.)
-
-        if not response.get("has_more"):
-            break
-
-        start_cursor = response.get("next_cursor")
-
-    return "\n\n".join(md_lines)
-
+def save_to_file(content):
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write("# Synced Notion Notes\n\n")
+        f.write(content)
+        f.write(f"\n_Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_\n")
 
 if __name__ == "__main__":
-    notion_page_id = os.getenv("NOTION_PAGE_ID")
-    if not notion_page_id:
-        raise ValueError("Missing NOTION_PAGE_ID environment variable")
-
-    content = fetch_page_content(notion_page_id)
-
-    with open("README.md", "w", encoding="utf-8") as f:
-        f.write(content)
-
-    print("✅ Notion content written to README.md")
+    content = fetch_page_content(NOTION_PAGE_ID)
+    save_to_file(content)
