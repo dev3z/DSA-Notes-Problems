@@ -1,2 +1,10 @@
-with open("README.md", "w", encoding="utf-8") as f:
-    f.write(content)
+# Synced Notion Notes
+
+
+
+
+
+
+
+
+_Last updated: 2025-06-13 19:29:42_
