@@ -10,7 +10,7 @@ notion = Client(auth=NOTION_TOKEN)
 
 def fetch_page_content(page_id):
     from notion_client.helpers import get_id
-    block_id = get_id(page_id)
+   block_id = page_id
     children = notion.blocks.children.list(block_id)["results"]
     content = ""
     for child in children:
