@@ -1,35 +1,35 @@
-name: Sync Notion Notes
+name: Sync Notion to README
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Runs every 30 minutes (comment says 6 hours, but it's 30 mins)
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
-  sync:
+  sync-notion:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install requests
+        run: pip install requests
 
-      - name: Run sync script
+      - name: Export Notion page to README
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_PAGE_ID: ${{ secrets.NOTION_PAGE_ID }}
-        run: python sync_notion.py
+        run: python notion_to_readme.py
 
-      - name: Commit and push changes
+      - name: Commit & push if changed
         run: |
-          git config user.name "dev3z"
-          git config user.email "dkp05022003@gmail.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff --cached --quiet || git commit -m "Sync Notion notes"
+          git diff --cached --quiet || git commit -m "Update README from Notion"
           git push
