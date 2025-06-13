@@ -2,7 +2,7 @@ name: Sync Notion Notes
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Runs every 6 hours
+    - cron: '*/30 * * * *'  # Runs every 30 minutes (comment says 6 hours, but it's 30 mins)
   workflow_dispatch:
 
 jobs:
@@ -31,5 +31,5 @@ jobs:
           git config user.name "dev3z"
           git config user.email "dkp05022003@gmail.com"
           git add README.md
-          git commit -m "Sync Notion notes" || echo "No changes to commit"
+          git diff --cached --quiet || git commit -m "Sync Notion notes"
           git push
