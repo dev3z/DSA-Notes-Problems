@@ -2,7 +2,7 @@ name: Sync Notion Notes
 
 on:
   schedule:
-    - cron: '0 */1 * * *'  # Runs every 6 hours
+    - cron: '*/30 * * * *'  # Runs every 6 hours
   workflow_dispatch:
 
 jobs:
