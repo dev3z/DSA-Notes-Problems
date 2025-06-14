@@ -1713,6 +1713,45 @@ public class Solution {
 }
 ```
 
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+
+```
+//Using Left and right pointer 
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode rp= head ,lp = head;
+        if(rp.next == null && n ==1){
+            return null;
+        }
+
+        int count = 0;
+        while(rp != null){
+            //starting lp when rp reaches end . 
+            //so lp will reach to the node prev to the node that has to be remove
+            if(count>n) lp= lp.next;
+            rp = rp.next;
+            count++;
+        }
+        //linkedlist has N node and n = N 
+        //=> removing head
+         if(n == count) return head. next;
+
+         //lp reaches to node prev to the node that has to be remove
+        lp.next = lp.next.next;
+        return head;
+    }
+   
+}
+```
+
+You are not creating a copy of the node, you're creating another reference to the same object in memory.
+
+Both lp and head now point to the same node in the linked list.
+
+You're mutating the object that both lp and head refer to. So the change is visible in head too, because they point to the same underlying object.
+
+
+
 
 
 
@@ -2114,4 +2153,4 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-14 22:17:48_
+_Last updated: 2025-06-14 22:42:12_
