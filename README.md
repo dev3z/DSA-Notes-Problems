@@ -1633,6 +1633,45 @@ class Solution {
 
 
 
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+
+```
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        // Step 1: Check if we have k nodes to reverse
+        ListNode node = head;
+        int count = 0;
+        while (node != null && count < k) {
+            node = node.next;
+            count++;
+        }
+
+        // If fewer than k nodes, return head as is
+        if (count < k) {
+            return head;
+        }
+
+        // Step 2: Reverse k nodes
+        ListNode prev = null, curr = head, next = null;
+        int i = 0;
+        while (i < k) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            i++;
+        }
+
+        // Step 3: Recurse on the rest
+        head.next = reverseKGroup(curr, k);
+
+        // prev is the new head of the reversed group
+        return prev;
+    }
+}
+
+```
+
 prev = head (after reversal)
 
 curr = null ( node just after prev)
@@ -1819,4 +1858,4 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-14 18:48:10_
+_Last updated: 2025-06-14 19:14:01_
