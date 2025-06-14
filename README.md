@@ -1633,6 +1633,10 @@ class Solution {
 
 
 
+prev = head (after reversal)
+
+curr = null ( node just after prev)
+
 
 
 
@@ -1815,4 +1819,4 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-14 17:50:58_
+_Last updated: 2025-06-14 18:23:56_
