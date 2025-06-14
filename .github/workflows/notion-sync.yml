@@ -33,8 +33,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "dev3z"
+          git config --global user.email "dkp05022003@gmail.com"
           git add README.md
           git commit -m "Update README.md from Notion" || echo "No changes to commit"
           git push
