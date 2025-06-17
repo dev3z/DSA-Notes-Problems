@@ -2517,6 +2517,32 @@ Object	//Inherited from base class (toString, clone)
 
 ### Monotonic Increasing
 
+
+
+### NGE (
+
 ### Monotonic Decreasing
 
-_Last updated: 2025-06-17 17:53:58_
+
+
+```
+  public int[] nextGreaterElement(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n]; // Output array
+        Arrays.fill(result, -1); // Default to -1 if no greater element exists
+        Stack<Integer> stack = new Stack<>(); // Stack stores indices
+
+        // Iterate through the array
+        for (int i = 0; i < n; i++) {
+            // While stack is not empty and current element is greater than stack top
+            while (!stack.isEmpty() && nums[i] > nums[stack.peek()]) {
+                int index = stack.pop(); // Pop the top element
+                result[index] = nums[i]; // The current element is the Next Greater Element
+            }
+            stack.push(i); // Push the current index onto the stack
+        }
+        return result;
+    }
+```
+
+_Last updated: 2025-06-17 18:27:42_
