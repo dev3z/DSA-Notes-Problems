@@ -2116,7 +2116,212 @@ curr = null ( node just after prev)
 
 
 
+## 📚LINKED LIST PATTERNS 
 
+### 1. 🔁 Fast & Slow Pointer
+
+Use Case: Middle element, Cycle detection, Palindrome check
+
+### 🚀 Find Middle of LinkedList
+
+```
+ListNode slow = head, fast = head;
+while (fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+}
+return slow; // Middle node
+```
+
+### 🔄 Detect Cycle
+
+```
+public boolean hasCycle(ListNode head) {
+    ListNode slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+```
+
+### 2. 🔄 In-Place Reversal (Reverse Linked List)
+
+✅ Reverse Entire Linked List
+
+```
+public ListNode reverseList(ListNode head) {
+    ListNode prev = null;
+    while (head != null) {
+        ListNode next = head.next;
+        head.next = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+```
+
+✅5. Reverse in K-Groups
+
+```
+public ListNode reverseKGroup(ListNode head, int k) {
+    ListNode curr = head;
+    int count = 0;
+    while (curr != null && count < k) {
+        curr = curr.next;
+        count++;
+    }
+    if (count == k) {
+        curr = reverseKGroup(curr, k);
+        while (count-- > 0) {
+            ListNode tmp = head.next;
+            head.next = curr;
+            curr = head;
+            head = tmp;
+        }
+        head = curr;
+    }
+    return head;
+}
+```
+
+### 3. 🧩 Merge Two Sorted Lists
+
+```
+
+public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    ListNode dummy = new ListNode(0);
+    ListNode tail = dummy;
+    while (l1 != null && l2 != null) {
+        if (l1.val < l2.val) {
+            tail.next = l1;
+            l1 = l1.next;
+        } else {
+            tail.next = l2;
+            l2 = l2.next;
+        }
+        tail = tail.next;
+    }
+    tail.next = (l1 != null) ? l1 : l2;
+    return dummy.next;
+}
+```
+
+### 4. 🔁 Detect & Remove Loop
+
+```
+public void removeLoop(ListNode head) {
+    ListNode slow = head, fast = head;
+    boolean hasLoop = false;
+
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow == fast) {
+            hasLoop = true;
+            break;
+        }
+    }
+
+    if (hasLoop) {
+        slow = head;
+        while (slow.next != fast.next) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        fast.next = null; // Remove loop
+    }
+
+```
+
+### 5. 🔁 Palindrome Linked List (Using Reverse Half)
+
+```
+public boolean isPalindrome(ListNode head) {
+    ListNode slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    // Reverse second half
+    ListNode prev = null;
+    while (slow != null) {
+        ListNode next = slow.next;
+        slow.next = prev;
+        prev = slow;
+        slow = next;
+    }
+
+    // Compare both halves
+    ListNode left = head, right = prev;
+    while (right != null) {
+        if (left.val != right.val) return false;
+        left = left.next;
+        right = right.next;
+    }
+    return true;
+}
+```
+
+## 📋 4. COMMON LINKED LIST QUESTIONS ON LEETCODE
+
+## 🔖 5. LinkedList Template Snippets
+
+### Create and Print
+
+```
+
+LinkedList<Integer> list = new LinkedList<>();
+list.add(10);
+list.addFirst(5);
+list.addLast(15);
+System.out.println(list); // [5, 10, 15]
+```
+
+### Traverse Custom LinkedList
+
+```
+void printList(ListNode head) {
+    while (head != null) {
+        System.out.print(head.val + " ");
+        head = head.next;
+    }
+}
+```
+
+## 🔄 6. CIRCULAR LINKED LIST CHECK
+
+```
+public boolean isCircular(ListNode head) {
+    if (head == null) return true;
+    ListNode node = head.next;
+    while (node != null && node != head) {
+        node = node.next;
+    }
+    return (node == head);
+}
+```
+
+## ✅ 7. Remove N-th Node from End
+
+```
+
+public ListNode removeNthFromEnd(ListNode head, int n) {
+    ListNode dummy = new ListNode(0);
+    dummy.next = head;
+    ListNode first = dummy, second = dummy;
+    for (int i = 0; i <= n; i++) first = first.next;
+    while (first != null) {
+        first = first.next;
+        second = second.next;
+    }
+    second.next = second.next.next;
+    return dummy.next;
+}
+```
 
 
 
@@ -2296,4 +2501,4 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-17 04:29:34_
+_Last updated: 2025-06-17 04:52:57_
