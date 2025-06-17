@@ -1758,6 +1758,52 @@ https://leetcode.com/problems/swap-nodes-in-pairs/description/
 
 https://www.youtube.com/watch?v=M9lsf_ySE9s
 
+- Time
+O(n)
+
+- Space 
+O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+
+        //creating dummy node before head 
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode point = dummy;
+
+        //ensuring nodes we are swapping are not null
+        while (point.next != null && point.next.next != null){
+        
+        //idenetifying nodes to swap
+        ListNode swap1 = point.next;
+        ListNode swap2 = point.next.next;
+
+        //actual swap
+        swap1.next = swap2.next;
+        swap2.next = swap1;
+
+        point.next = swap2;
+        point = swap1;   
+        }
+        
+        return dummy.next;
+    }
+}
+```
+
 
 
 https://leetcode.com/problems/rotate-list/description/
@@ -1848,10 +1894,6 @@ class Solution {
     }
 }
 ```
-
-
-
-
 
 
 
@@ -1993,8 +2035,6 @@ In our case, that means:
 - At least one value appears more than once → it creates a cycle when modeled as pointers
 
 
-
-
 ### ✅ In - Place Reversal in LL
 
 O(N) time    O(1) space
@@ -2068,9 +2108,11 @@ class Solution {
 
 ```
 
-prev = head (after reversal)
+
 
 curr = null ( node just after prev)
+
+
 
 
 
@@ -2254,4 +2296,4 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-17 03:56:52_
+_Last updated: 2025-06-17 04:29:34_
