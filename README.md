@@ -2501,4 +2501,22 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-17 12:40:12_
+
+
+
+
+## ✅ Monotonic Stack
+
+ → Next Greater / Smaller
+
+ → Previous Greater / Smaller  
+
+ → Array related , Time O(n²)  → O(n)
+
+ → Better To Store indices of Array
+
+### Monotonic Increasing
+
+### Monotonic Decreasing
+
+_Last updated: 2025-06-17 13:21:45_
