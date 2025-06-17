@@ -1459,6 +1459,8 @@ class Solution {
 
 ### ✅Linked List
 
+### ⭐Dummy pointer Strategy
+
 Visualization of this solution:
 
 Case 1 (Have Intersection & Same Len):
@@ -1752,7 +1754,65 @@ You're mutating the object that both lp and head refer to. So the change is visi
 
 
 
+https://leetcode.com/problems/swap-nodes-in-pairs/description/
+
+https://www.youtube.com/watch?v=M9lsf_ySE9s
+
+
+
+https://leetcode.com/problems/rotate-list/description/
+
+- Time complexity:
+O(n)  ==O(2n)
+
+We traverse the list twice: once to find the length and once to find the new tail. 
+
+- Space complexity:
+O(1)
+
+```
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+
+if (head == null || head.next == null || k == 0) return head;
+
+        //Finding length of the list
+        ListNode temp = head;
+        int len = 1;
+        while(temp.next != null){
+            len++;
+            temp = temp.next;
+        }
+
+        
+       //Computing rotations
+        k = k % len;
+        if(k == 0) return head;
+
+       // Making the list circular
+        temp.next = head;
+
+        //Finding new tail (length - k steps ahead)
+         temp = temp.next; //at head
+        for(int i = 0 ; i< len - k -1 ; i++){
+            temp = temp.next;   
+        }
+
+        //: New head is after new tail
+        head = temp.next;
+        temp.next = null;
+
+        return head;
+    }
+}
+```
+
 https://leetcode.com/problems/add-two-numbers/description/
+
+O(N)  TIme
+
+constant space
 
 ```
 /**
@@ -2194,4 +2254,4 @@ Collection	//Root interface for most collections
 Object	//Inherited from base class (toString, clone)
 ```
 
-_Last updated: 2025-06-17 03:10:53_
+_Last updated: 2025-06-17 03:56:52_
