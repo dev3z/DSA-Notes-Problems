@@ -2519,7 +2519,9 @@ Object	//Inherited from base class (toString, clone)
 
 
 
-### NGE (
+### NGE 
+
+https://www.youtube.com/watch?v=DtJVwbbicjQ
 
 ### Monotonic Decreasing
 
@@ -2545,4 +2547,4 @@ Object	//Inherited from base class (toString, clone)
     }
 ```
 
-_Last updated: 2025-06-22 15:50:50_
+_Last updated: 2025-06-22 16:22:26_
