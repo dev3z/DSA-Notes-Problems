@@ -2519,13 +2519,17 @@ Object	//Inherited from base class (toString, clone)
 
 
 
+### Monotonic Decreasing
+
+
+
 ### NGE 
 
 https://www.youtube.com/watch?v=DtJVwbbicjQ
 
-### Monotonic Decreasing
+time  = O(n)
 
-
+space = O(n) 
 
 ```
   public int[] nextGreaterElement(int[] nums) {
@@ -2547,4 +2551,4 @@ https://www.youtube.com/watch?v=DtJVwbbicjQ
     }
 ```
 
-_Last updated: 2025-06-22 16:22:26_
+_Last updated: 2025-06-22 16:46:36_
