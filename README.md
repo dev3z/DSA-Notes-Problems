@@ -2537,9 +2537,17 @@ https://www.youtube.com/watch?v=DtJVwbbicjQ
 
 https://www.youtube.com/watch?v=1_Bbq5qOraY
 
-time  = O(n)
+3. Initialization:
+- Creating the result array and filling it with -1: O(n)
+3. Main Loop:
+- The outer for-loop iterates through all n elements: O(n)
+3. Inner While Loop:
+- Every element is pushed exactly once: O(n) operations
+- Every element is popped at most once: O(n) operations
+- Total operations: 2×O(n) = O(n)
+- The while loop might seem nested, but it's amortized O(1) per iteration of the main loop
 
-space = O(n) 
+
 
 ```
   public int[] nextGreaterElement(int[] nums) {
@@ -2590,4 +2598,4 @@ space = O(n)
     }   
 ```
 
-_Last updated: 2025-06-23 20:21:58_
+_Last updated: 2025-06-23 20:44:04_
