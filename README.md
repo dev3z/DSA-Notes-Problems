@@ -6,6 +6,12 @@ UL - LL - 1   ( when both inclusive )
 
 UL - LL         ( when any one inclusive  & other exclusive )
 
+define 
+
+```
+int max =  Integer.MIN_VALUE;
+```
+
 
 
 ```
@@ -2680,4 +2686,4 @@ space = O(n)
     }   
 ```
 
-_Last updated: 2025-06-23 21:18:51_
+_Last updated: 2025-06-23 21:50:58_
