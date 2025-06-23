@@ -1,5 +1,13 @@
 # Synced Notion Notes
 
+UL - LL - 1   ( when both exclusive )
+
+UL - LL - 1   ( when both inclusive )
+
+UL - LL         ( when any one inclusive  & other exclusive )
+
+
+
 ```
 1. List Interface (e.g., ArrayList, LinkedList) // Commonly Used
 add(E e);                    // Adds element to the list
@@ -2582,4 +2590,4 @@ space = O(n)
     }   
 ```
 
-_Last updated: 2025-06-23 19:52:33_
+_Last updated: 2025-06-23 20:21:58_
