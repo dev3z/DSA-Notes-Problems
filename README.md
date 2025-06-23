@@ -2686,10 +2686,13 @@ space = O(n)
     }   
 ```
 
+https://leetcode.com/problems/largest-rectangle-in-histogram/description/
 
+
+bit slow — > ⏲️ Time - O(5N)
 
 ```
 
 ```
 
-_Last updated: 2025-06-23 23:32:09_
+_Last updated: 2025-06-23 23:51:20_
