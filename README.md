@@ -2531,7 +2531,7 @@ Object	//Inherited from base class (toString, clone)
 
 
 
-### NGE 
+## NGE 
 
 https://www.youtube.com/watch?v=DtJVwbbicjQ
 
@@ -2549,7 +2549,11 @@ https://www.youtube.com/watch?v=1_Bbq5qOraY
 
 
 
+- Direction: Left to right
+- Comparison: Current > Stack top
+- Stack: Decreasing monotonic stack
 ```
+ // dry run --  2 1 5 6 2 3
   public int[] nextGreaterElement(int[] nums) {
         int n = nums.length;
         int[] result = new int[n]; // Output array
@@ -2570,6 +2574,67 @@ https://www.youtube.com/watch?v=1_Bbq5qOraY
 ```
 
  
+
+### Previous Greater Element
+
+3. W going left to right, but now we're asking "what's the closest greater element to my left?
+3. The result update happens for the current index (not the popped index)
+3. We pop elements smaller than current (to maintain decreasing order)
+```
+ public int[] previousGreaterElement(int[] nums) {
+    int n = nums.length;
+    int[] result = new int[n];
+    Arrays.fill(result, -1);
+    Stack<Integer> stack = new Stack<>();
+
+    // Iterate from right to left ❌ NO! Still iterate from left to right
+    for (int i = 0; i < n; i++) {
+        // While current element is greater or equal to stack top
+        while (!stack.isEmpty() && nums[i] >= nums[stack.peek()]) {
+            stack.pop(); // Pop elements smaller than current
+        }
+        
+        //🔴 If stack is not empty, the top has the previous greater element
+        if (!stack.isEmpty()) {
+            result[i] = nums[stack.peek()];
+        }
+        
+        stack.push(i);
+    }
+    return result;
+}
+```
+
+### Next Smaller Element
+
+```
+ public int[] previousGreaterElement(int[] nums) {
+    int n = nums.length;
+    int[] result = new int[n];
+    Arrays.fill(result, -1);
+    Stack<Integer> stack = new Stack<>();
+
+    // Iterate from right to left ❌ NO! Still iterate from left to right
+    for (int i = 0; i < n; i++) {
+        // While current element is greater or equal to stack top
+        while (!stack.isEmpty() && nums[i] >= nums[stack.peek()]) {
+            stack.pop(); // Pop elements smaller than current
+        }
+        
+        //🔴 If stack is not empty, the top has the previous greater element
+        if (!stack.isEmpty()) {
+            result[i] = nums[stack.peek()];
+        }
+        
+        stack.push(i);
+    }
+    return result;
+}
+```
+
+
+
+
 
 https://leetcode.com/problems/daily-temperatures/description/
 
@@ -2598,4 +2663,4 @@ space = O(n)
     }   
 ```
 
-_Last updated: 2025-06-23 20:44:04_
+_Last updated: 2025-06-23 20:55:35_
