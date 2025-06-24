@@ -2689,10 +2689,12 @@ space = O(n)
 https://leetcode.com/problems/largest-rectangle-in-histogram/description/
 
 
-bit slow — > ⏲️ Time - O(5N)
+bit slow — > ⏲️ Time = O(5N)
+
+                     Space  = O(4N) =2 * O(2N)
 
 ```
 
 ```
 
-_Last updated: 2025-06-24 11:51:15_
+_Last updated: 2025-06-24 13:23:35_
