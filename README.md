@@ -2517,6 +2517,50 @@ Object	//Inherited from base class (toString, clone)
 
 
 
+## ✅ Stack
+
+https://leetcode.com/problems/valid-parentheses/description/
+
+- Time  / Space : O(n)
+```
+class Solution {
+    public boolean isValid(String s) {
+        // Stack to keep track of opening brackets
+        Stack<Character> st = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            // If it's an opening bracket, push to stack
+            if (c == '(' || c == '{' || c == '[') {
+                st.push(c);
+            }
+            // If it's a closing bracket
+            else if (c == ')' || c == '}' || c == ']') {
+                // If stack is empty, there's no matching opening bracket
+                if (st.isEmpty()) return false;
+                // Pop the top element and check if it matches the closing bracket
+                char top = st.pop();
+                if (
+                    (c == ')' && top != '(') ||
+                    (c == '}' && top != '{') ||
+                    (c == ']' && top != '[')
+                ) return false; // Mismatched bracket
+            }
+        }
+        // If stack is empty, all brackets matched; otherwise, some were unmatched
+        return st.isEmpty();
+    }
+}
+```
+
+
+
+- Time  / Space : 
+```
+
+```
+
+
+
 
 
 ## ✅ Monotonic Stack
@@ -2720,4 +2764,4 @@ class Solution {
 
 If it reaches end,  no nse
 
-_Last updated: 2025-06-26 06:36:07_
+_Last updated: 2025-06-26 12:50:46_
