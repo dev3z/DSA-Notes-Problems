@@ -2693,8 +2693,31 @@ bit slow — > ⏲️ Time = O(5N)
 
                      Space  = O(4N) =2 * O(2N)
 
-```
+Optimized 
+⭐⭐TC = O(n) + O(n)      while loop + pushing in stack
+SC = O(n)
 
 ```
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        Stack <Integer> st = new Stack <>();
+        int maxArea = Integer.MIN_VALUE;
+        int n = heights.length;
+        for(int i = 0  ; i <= n ; i++ ){
+            //nse , pse so increasing stack
+            while ( !st.isEmpty() && ( i == n || heights[st.peek()] > heights[i])){
+                int height = st.pop();
+                int nse = i;
+                int pse = st.isEmpty() ? -1 : st.peek();
+                maxArea = Math.max(heights[height] * ( nse - pse -1), maxArea);
+            }
+            st.push(i);
+        }
+        return maxArea;
+    }
+}
+```
 
-_Last updated: 2025-06-26 01:58:27_
+If it reaches end,  no nse
+
+_Last updated: 2025-06-26 06:36:07_
