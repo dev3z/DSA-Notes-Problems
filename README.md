@@ -1,5 +1,79 @@
 # Synced Notion Notes
 
+L9
+
+ Print All Factors of a Given Number
+
+
+
+better
+
+```
+from typing import List
+
+def factors(num: int) -> List[int]:
+    factors = []
+    for i in range(1, num // 2 + 1):
+        if num % i == 0:
+            factors.append(i)
+    factors.append(num)
+    return factors
+```
+
+
+
+optimal 
+
+```
+from typing import List
+from math import sqrt
+
+
+def factors(num: int) -> List[int]:
+    factors = []
+    for i in range(1, int(sqrt(num)) + 1):
+        if num % i == 0:
+            factors.append(i)
+            if num // i != i:
+                factors.append(num // i)
+    factors.sort()  # Do this only if you want in sorted order
+    return factors
+```
+
+
+
+
+
+
+
+L10
+
+
+
+
+
+L11
+
+Q:  freq of m in n  
+
+using hashing  → using list
+
+
+
+
+
+using Dict → even work if 1st constraint is also  not given
+
+
+
+Q:  freq of m in n   for string
+
+
+
+
+
+
+
 UL - LL - 1   ( when both exclusive )
 
 UL - LL - 1   ( when both inclusive )
@@ -5998,4 +6072,4 @@ io
 - Line Sweep
 - Suffix Array
 
-_Last updated: 2025-10-24 18:26:07_
+_Last updated: 2025-10-25 01:16:02_
